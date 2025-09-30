@@ -1,4 +1,4 @@
-library(psych)
+library(psych);library(sp);library(sf);library(tigris)
 
 `%notin%` <- Negate(`%in%`)
 nys.shp <- st_read("shapefiles/nys_tract.shp")
