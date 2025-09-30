@@ -7,8 +7,8 @@ nyc.shp <- st_read("shapefiles/nyc_tract.shp")
 data.all <- read.csv("Data/data.all.v2.csv")
 
 names(data.all)[3:46] <- c("Traffic","Truck_bus","PM2.5","Benzene","Wastewater","Remediation_site","Chemical_site","Oil_facility","Power_facility","Landfill",
-                           "Waste_combustor","Metal_process","Inductrial_land","Vacant_home","Heat_projection","Flooding_risk","Non_vegetative","Agricultural_land","Hospital_time","80_income",
-                           "100_poverty","No_bachelor","Unemployed","Single_parent","Hispanic","Black","Asian","Native","Limit_English","Redlining",
+                           "Waste_combustor","Metal_process","Inductrial_land","Vacant_home","Heat_projection","Flooding_risk","Non_vegetative","Agricultural_land","Hospital_time","income80",
+                           "poverty100","No_bachelor","Unemployed","Single_parent","Hispanic","Black","Asian","Native","Limit_English","Redlining",
                            "Asthma","COPD","Heart_attack","Death","Low_birthweight","No_insurance","Disabled","Age65plus","Renter_home","Rental_cost",
                            "Energy_poverty","Mobile_home","Home1960","No_internet")
 
@@ -36,7 +36,7 @@ screeplot(pca.risk,type = "l")
 abline(h=1)
 summary(pca.risk) # 5 PCs
 
-pca.vuln <- prcomp(~ 80_income + 100_poverty + No_bachelor + Unemployed + Single_parent + Hispanic + Black + Asian + Native + Limit_English + Redlining + Asthma + COPD + Heart_attack + 
+pca.vuln <- prcomp(~ income80 + poverty100 + No_bachelor + Unemployed + Single_parent + Hispanic + Black + Asian + Native + Limit_English + Redlining + Asthma + COPD + Heart_attack + 
                      Death + Low_birthweight + No_insurance + Disabled + Age65plus + Renter_home + Rental_cost + Energy_poverty + Mobile_home + Home1960 + No_internet, data.vuln)
 screeplot(pca.vuln,type = "l")
 abline(h=1)
