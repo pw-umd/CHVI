@@ -5,6 +5,13 @@ nys.shp <- st_read("shapefiles/nys_tract.shp")
 nyc.shp <- st_read("shapefiles/nyc_tract.shp")
 
 data.all <- read.csv("Data/data.all.v2.csv")
+
+names(data.all)[3:46] <- c("Traffic","Truck_bus","PM2.5","Benzene","Wastewater","Remediation_site","Chemical_site","Oil_facility","Power_facility","Landfill",
+                           "Waste_combustor","Metal_process","Inductrial_land","Vacant_home","Heat_projection","Flooding_risk","Non_vegetative","Agricultural_land","Hospital_time","income80",
+                           "poverty100","No_bachelor","Unemployed","Single_parent","Hispanic","Black","Asian","Native","Limit_English","Redlining",
+                           "Asthma","COPD","Heart_attack","Death","Low_birthweight","No_insurance","Disabled","Age65plus","Renter_home","Rental_cost",
+                           "Energy_poverty","Mobile_home","Home1960","No_internet")
+
 for (i in c(3:46)) {
   if (i %in% c(8:17,20,24:31,38:41,44:46)) { # make zero raw values rank zero, and calculate percentiles for all other non-zero raw values 
     data.all.i <- data.all[,c(2,i)]
@@ -17,11 +24,11 @@ for (i in c(3:46)) {
     data.all <- data.all[,c(2,1,3:ncol(data.all))]
   } else data.all[,i] <- ecdf(data.all[,i])(data.all[,i])*100
 }
-data.all <- data.all[,c("X","GEOID","TRAFFIC","TRUCK","PM25","BENZENE","WASTEWATER","REME_AREA.y","CHEMICAL.y","OIL.y",
-                        "POWER.y","LANDFILL.y","COMBUSTOR.y","METAL.y","INDUSTRIAL.y","VACANTHOME.y","HEAT90.y","FLOOD_RISK","NONVEG","AGRI_AREA.y",
-                        "HOSPITAL","INCOME80","POVERTY100","NOBACHELOR.y","UNEMPLOYED.y","SGL_PARENT.y","HISPANIC.y","BLACK.y","ASIAN.y","NATIVE.y",
-                        "ENGLISH.y","REDLINING","ASTHMA","COPD","MI","PREM_DEATH","LBW","NO_INS.y","DISABILITY.y","AGE65PLUS.y",
-                        "RENTERHOME.y","RENT_COST","ENERGY","MOBILEHOME.y","HOME1960.y","NOINTERNET.y")]
+data.all <- data.all[,c("X","GEOID","Traffic","Truck_bus","PM2.5","Benzene","Wastewater","Remediation_site.y","Chemical_site.y","Oil_facility.y",
+                        "Power_facility.y","Landfill.y","Waste_combustor.y","Metal_process.y","Inductrial_land.y","Vacant_home.y","Heat_projection.y","Flooding_risk","Non_vegetative","Agricultural_land.y",
+                        "Hospital_time","income80","poverty100","No_bachelor.y","Unemployed.y","Single_parent.y","Hispanic.y","Black.y","Asian.y","Native.y",
+                        "Limit_English.y","Redlining","Asthma","COPD","Heart_attack","Death","Low_birthweight","No_insurance.y","Disabled.y","Age65plus.y",
+                        "Renter_home.y","Rental_cost","Energy_poverty","Mobile_home.y","Home1960.y","No_internet.y")]
 names(data.all) <- gsub(".y", "", names(data.all))
 
 data.all$score.a1 <- apply(data.all[,3:7],1,mean,na.rm=TRUE)
